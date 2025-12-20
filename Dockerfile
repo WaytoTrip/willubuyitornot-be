@@ -1,15 +1,26 @@
 # Multi-stage build for Spring Boot application
 
 # Stage 1: Build
-FROM gradle:8.11-jdk25 AS build
+FROM eclipse-temurin:25-jdk AS build
 WORKDIR /app
+
+# Install Gradle
+RUN apt-get update && apt-get install -y wget unzip && \
+    wget https://services.gradle.org/distributions/gradle-8.11-bin.zip && \
+    unzip gradle-8.11-bin.zip && \
+    mv gradle-8.11 /opt/gradle && \
+    rm gradle-8.11-bin.zip
+
+ENV PATH="/opt/gradle/bin:${PATH}"
 
 # Copy gradle files
 COPY build.gradle settings.gradle ./
 COPY gradle ./gradle
+COPY gradlew ./
+COPY gradlew.bat ./
 
 # Download dependencies
-RUN gradle dependencies --no-daemon
+RUN gradle dependencies --no-daemon || true
 
 # Copy source code
 COPY src ./src
