@@ -1,7 +1,5 @@
-# Multi-stage build for Spring Boot application
-
 # Stage 1: Build
-FROM gradle:8.14-jdk21 AS build
+FROM gradle:8.5-jdk21 AS build
 WORKDIR /app
 
 # Copy gradle wrapper
@@ -32,4 +30,4 @@ COPY --from=build /app/build/libs/*.jar app.jar
 EXPOSE 8080
 
 # Run application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod} -Dserver.port=${PORT:-8080} -jar app.jar"]
