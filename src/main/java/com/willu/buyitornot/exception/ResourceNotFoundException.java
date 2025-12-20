@@ -1,4 +1,4 @@
-package com.willu.buyitornot.web.exception;
+package com.willu.buyitornot.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

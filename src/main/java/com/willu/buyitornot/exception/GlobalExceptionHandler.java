@@ -1,4 +1,4 @@
-package com.willu.buyitornot.web.exception;
+package com.willu.buyitornot.exception;
 
 import com.willu.buyitornot.web.ui.common.ApiResponse;
 import org.springframework.http.HttpStatus;
