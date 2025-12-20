@@ -1,12 +1,10 @@
 spring:
-  profiles:
-    active: live
-
   # MongoDB 설정
-  mongodb:
-    host: ${MONGOHOST}
-    database: ${MONGODATABASE}
-    port: ${MONGOPORT}
-    username: ${MONGOUSER}
-    password: ${MONGOPASSWORD}
-    authentication-database: admin
+  data:
+    mongodb:
+      host: ${MONGOHOST}
+      port: ${MONGOPORT}
+      database: ${MONGODATABASE}
+      username: ${MONGOUSER:}
+      password: ${MONGOPASSWORD:}
+      authentication-database: admin
