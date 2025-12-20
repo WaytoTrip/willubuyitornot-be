@@ -29,5 +29,5 @@ COPY --from=build /app/build/libs/*.jar app.jar
 # Expose port
 EXPOSE 8080
 
-# Run application
+# Run application with environment variables
 ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod} -Dserver.port=${PORT:-8080} -jar app.jar"]
