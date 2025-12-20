@@ -1,13 +1,8 @@
 spring:
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:prod}
+    active: dev
 
-  # MongoDB 설정
-  data:
-    mongodb:
-      host: ${MONGOHOST:localhost}
-      port: ${MONGOPORT:27017}
-      database: ${MONGODATABASE:myapp_logs}
-      username: ${MONGOUSER:}
-      password: ${MONGOPASSWORD:}
-      authentication-database: admin
+  mongodb:
+    host: localhost
+    port: 27017
+    database: buyit
