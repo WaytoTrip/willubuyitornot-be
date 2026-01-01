@@ -26,6 +26,7 @@ public enum ErrorCode {
 
     // User Swipe : 50000 ~ 59999
     ALREADY_PARTICIPATED(50000, "이미 참여한 투표입니다."),
+    USER_SWIPE_NOT_FOUND(50001, "스와이프 결과가 존재하지 않습니다."),
 
     ;
 

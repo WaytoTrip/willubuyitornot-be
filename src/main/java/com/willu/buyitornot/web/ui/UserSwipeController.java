@@ -6,10 +6,12 @@ import com.willu.buyitornot.web.auth.AuthUser;
 import com.willu.buyitornot.web.ui.common.WrapResponse;
 import com.willu.buyitornot.web.ui.request.VoteRequest;
 import com.willu.buyitornot.web.ui.response.VoteResponse;
+import com.willu.buyitornot.web.ui.response.VoteResultResponse;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,5 +30,11 @@ public class UserSwipeController {
                                   @PathVariable String swipeId,
                                   @Valid @RequestBody VoteRequest request) {
         return userSwipeService.saveVotes(user.getId(), swipeId, request);
+    }
+
+    @GetMapping("/swipes/{swipeId}/result")
+    public VoteResultResponse getVoteResult(@AuthUser User user,
+                                            @PathVariable String swipeId) {
+        return userSwipeService.getVoteResult(user.getId(), swipeId);
     }
 }
