@@ -18,9 +18,14 @@ public enum ErrorCode {
 
     // Swipe : 30000 ~ 39999
     LATEST_SWIPE_NOT_FOUND(30000, "최신 스와이프를 찾을 수 없습니다."),
+    SWIPE_NOT_FOUND(30001, "스와이프를 찾을 수 없습니다."),
+    INVALID_GAME_IN_SWIPE(30002, "해당 스와이프에 포함되지 않는 게임입니다."),
 
     // Game : 40000 ~ 49999
     GAME_NOT_FOUND(40000, "조회된 게임이 없습니다."),
+
+    // User Swipe : 50000 ~ 59999
+    ALREADY_PARTICIPATED(50000, "이미 참여한 투표입니다."),
 
     ;
 
