@@ -1,14 +1,25 @@
 package com.willu.buyitornot.web.ui.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.willu.buyitornot.exception.ErrorCode;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class
-ApiResponse<T> {
+public class ApiResponse<T> {
     private boolean success;
     private T data;
-    private String message;
-    private String error;
+    private ErrorInfo error;
+
+    @Getter
+    @AllArgsConstructor
+    @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+    public static class ErrorInfo {
+        String code;
+        String message;
+    }
 
     public ApiResponse() {
     }
@@ -18,32 +29,21 @@ ApiResponse<T> {
         this.data = data;
     }
 
-    public ApiResponse(boolean success, T data, String message) {
-        this.success = success;
-        this.data = data;
-        this.message = message;
-    }
-
     public static <T> ApiResponse<T> success(T data) {
         return new ApiResponse<>(true, data);
     }
 
-    public static <T> ApiResponse<T> success(T data, String message) {
-        return new ApiResponse<>(true, data, message);
-    }
-
-    public static <T> ApiResponse<T> error(String error) {
+    public static <T> ApiResponse<T> error(ErrorCode errorCode) {
         ApiResponse<T> response = new ApiResponse<>();
         response.setSuccess(false);
-        response.setError(error);
+        response.setError(new ErrorInfo(errorCode.name(), errorCode.getMessage()));
         return response;
     }
 
-    public static <T> ApiResponse<T> error(String error, T data) {
+    public static <T> ApiResponse<T> error(ErrorCode errorCode, String message) {
         ApiResponse<T> response = new ApiResponse<>();
         response.setSuccess(false);
-        response.setError(error);
-        response.setData(data);
+        response.setError(new ErrorInfo(errorCode.name(), message));
         return response;
     }
 
@@ -64,19 +64,11 @@ ApiResponse<T> {
         this.data = data;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getError() {
+    public ErrorInfo getError() {
         return error;
     }
 
-    public void setError(String error) {
+    public void setError(ErrorInfo error) {
         this.error = error;
     }
 }

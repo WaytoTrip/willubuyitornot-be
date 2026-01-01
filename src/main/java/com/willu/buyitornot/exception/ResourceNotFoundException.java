@@ -1,11 +1,19 @@
 package com.willu.buyitornot.exception;
 
+import lombok.Getter;
+
+@Getter
 public class ResourceNotFoundException extends RuntimeException {
-    public ResourceNotFoundException(String message) {
-        super(message);
+
+    private final ErrorCode errorCode;
+
+    public ResourceNotFoundException(ErrorCode errorCode) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
     }
 
-    public ResourceNotFoundException(String resource, String field, Object value) {
-        super(String.format("%s not found with %s: %s", resource, field, value));
+    public ResourceNotFoundException(ErrorCode errorCode, String message) {
+        super(message);
+        this.errorCode = errorCode;
     }
 }

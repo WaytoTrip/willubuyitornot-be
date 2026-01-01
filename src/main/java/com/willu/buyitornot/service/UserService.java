@@ -1,5 +1,6 @@
 package com.willu.buyitornot.service;
 
+import com.willu.buyitornot.exception.ErrorCode;
 import com.willu.buyitornot.exception.ResourceNotFoundException;
 import com.willu.buyitornot.infra.collection.User;
 import com.willu.buyitornot.infra.repository.UserRepository;
@@ -22,7 +23,7 @@ public class UserService {
 
     public User getUserById(ObjectId id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id.toHexString()));
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.USER_NOT_FOUND, "id: " + id.toHexString()));
     }
 
     @Transactional
@@ -34,7 +35,7 @@ public class UserService {
 
     private LoginResponse buildLoginResponseForExistingUser(User user) {
         ObjectId latestSwipeId = swipeService.getLatestSwipeId()
-                .orElseThrow(() -> new ResourceNotFoundException("Swipe", "latest", "none"));
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.LATEST_SWIPE_NOT_FOUND));
 
         boolean alreadyParticipated = userSwipeService.hasUserParticipated(user.getId(), latestSwipeId);
 
