@@ -20,7 +20,7 @@ public enum ErrorCode {
     LATEST_SWIPE_NOT_FOUND(30000, "최신 스와이프를 찾을 수 없습니다."),
 
     // Game : 40000 ~ 49999
-    NO_GAMES_FOUND(40000, "조회된 게임이 없습니다."),
+    GAME_NOT_FOUND(40000, "조회된 게임이 없습니다."),
 
     ;
 
