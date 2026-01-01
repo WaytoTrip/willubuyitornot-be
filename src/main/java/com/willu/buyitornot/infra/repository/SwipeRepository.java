@@ -1,6 +1,6 @@
 package com.willu.buyitornot.infra.repository;
 
-import com.willu.buyitornot.infra.collection.User;
+import com.willu.buyitornot.infra.collection.Swipe;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, ObjectId> {
+public interface SwipeRepository extends MongoRepository<Swipe, ObjectId> {
 
-    Optional<User> findByNickname(String nickname);
+    Optional<Swipe> findTopByOrderByCreatedAtDesc();
 }
