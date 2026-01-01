@@ -12,5 +12,6 @@ public class LoginResponse {
 
     String userId;
     String nickname;
-    boolean alreadyParticipated;
+    String swipeId;
+    boolean participated;
 }

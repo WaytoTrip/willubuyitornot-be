@@ -37,22 +37,27 @@ public class UserService {
         ObjectId latestSwipeId = swipeService.getLatestSwipeId()
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.LATEST_SWIPE_NOT_FOUND));
 
-        boolean alreadyParticipated = userSwipeService.hasUserParticipated(user.getId(), latestSwipeId);
+        boolean participated = userSwipeService.hasUserParticipated(user.getId(), latestSwipeId);
 
         return LoginResponse.builder()
                 .userId(user.getId().toHexString())
                 .nickname(user.getNickname())
-                .alreadyParticipated(alreadyParticipated)
+                .swipeId(latestSwipeId.toHexString())
+                .participated(participated)
                 .build();
     }
 
     private LoginResponse buildLoginResponseForNewUser(String nickname) {
+        ObjectId latestSwipeId = swipeService.getLatestSwipeId()
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.LATEST_SWIPE_NOT_FOUND));
+
         User newUser = userRepository.save(new User(nickname));
 
         return LoginResponse.builder()
                 .userId(newUser.getId().toHexString())
                 .nickname(newUser.getNickname())
-                .alreadyParticipated(false)
+                .swipeId(latestSwipeId.toHexString())
+                .participated(false)
                 .build();
     }
 }
